@@ -82,6 +82,7 @@
     </div>
   </div>
   <div class="chatbox" id="chatbox">
+    <div class="chatbox-resize-handle" id="chatbox-resize-handle"></div>
     <div class="chatbox-header" onclick="toggleChatbox()">
       Chat with Us!
     </div>
@@ -104,8 +105,11 @@
   <!-- JavaScript for handling chatbox interaction -->
   <script th:src="@{/resources/js/chat.js}"></script>
   <script>
-    // Call loadChatMessages when the page loads
-    window.onload = loadChatMessages;
+    // Call loadChatMessages and init resize when the page loads
+    window.onload = function() {
+      loadChatMessages();
+      initChatboxResize();
+    };
 
     // Ensure messages are saved when navigating away
     window.onbeforeunload = saveChatMessages;

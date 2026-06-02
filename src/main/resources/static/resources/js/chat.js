@@ -19,14 +19,39 @@ function appendMessage(message, type) {
 
 function toggleChatbox() {
     const chatbox = document.getElementById('chatbox');
-    const chatboxContent = document.getElementById('chatbox-content');
 
     if (chatbox.classList.contains('minimized')) {
         chatbox.classList.remove('minimized');
-        chatboxContent.style.height = '400px'; // Set to initial height when expanded
     } else {
         chatbox.classList.add('minimized');
-        chatboxContent.style.height = '40px'; // Set to minimized height
+    }
+}
+
+// Drag-to-resize from the top handle
+function initChatboxResize() {
+    const handle = document.getElementById('chatbox-resize-handle');
+    const chatbox = document.getElementById('chatbox');
+    if (!handle || !chatbox) return;
+
+    let startY, startHeight;
+
+    handle.addEventListener('mousedown', function(e) {
+        startY = e.clientY;
+        startHeight = chatbox.offsetHeight;
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+        e.preventDefault();
+    });
+
+    function onMouseMove(e) {
+        const delta = startY - e.clientY;
+        const newHeight = Math.min(Math.max(startHeight + delta, 150), window.innerHeight * 0.85);
+        chatbox.style.height = newHeight + 'px';
+    }
+
+    function onMouseUp() {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
     }
 }
 

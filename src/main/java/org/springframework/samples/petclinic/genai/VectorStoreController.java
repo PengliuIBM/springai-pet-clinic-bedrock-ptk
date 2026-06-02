@@ -63,12 +63,15 @@ public class VectorStoreController {
 
 	@EventListener
 	public void loadVetDataToVectorStoreOnStartup(ApplicationStartedEvent event) throws IOException {
+		if (!(vectorStore instanceof SimpleVectorStore)) {
+			logger.info("Vector store is not a SimpleVectorStore, skipping pre-load");
+			return;
+		}
+
 		Resource resource = new ClassPathResource("vectorstore.json");
 
 		// Check if file exists
 		if (resource.exists()) {
-			// In order to save on AI credits, use a pre-embedded database that was saved
-			// to disk based on the current data in the h2 data.sql file
 			((SimpleVectorStore) this.vectorStore).load(resource);
 			logger.info("Vector store loaded from existing {} file in the classpath", resource.getFilename());
 			return;
