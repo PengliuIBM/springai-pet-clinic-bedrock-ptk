@@ -1,3 +1,8 @@
+
+# NOTE:  
+## The original project uses OpenAI (GPT-4o) as the LLM backend. This migration switches it to AWS Bedrock (Claude Sonnet 4.6) using the Bedrock Converse API. Just want to let us know, it's easy and little efforts exchange the OpenAI<>Claude(on AWS Bedrock).
+## All AWS Bedrock user can develop your app with SpringAI easily.  Again，all spring-pet-clinic code come from Spring community.
+
 # Spring PetClinic AI — 从 OpenAI 迁移到 AWS Bedrock (Claude) 变更记录
 
 ## 背景
